@@ -1,0 +1,41 @@
+<?php
+// safe helper function for ACF "get_field" to protect theme dependency for ACF.
+function safe_get_field($field_name, $default = '') {
+    return function_exists('get_field') ? get_field($field_name) : $default;
+}
+
+require_once get_stylesheet_directory() . '/lib/functions/_assets.php';
+require_once get_stylesheet_directory() . '/lib/functions/_authorData.php';
+require_once get_stylesheet_directory() . '/lib/functions/_users.php';
+require_once get_stylesheet_directory() . '/lib/functions/_ajaxHandler.php';
+
+// fixes for admin sms listings labeled as Auto Draft
+add_action('acf/save_post', function($post_id) {
+
+    // Only run for 'sms' post type
+    if (get_post_type($post_id) !== 'sms_sms') return;
+
+    // Only if the post title is empty
+    $post = get_post($post_id);
+    if (!empty($post->post_title) && $post->post_title !== 'Auto Draft') return;
+
+    // Get the sms_text ACF field
+    $sms_text = function_exists('get_field') ? get_field('sms_text', $post_id) : get_the_content($post_id);
+    if (!$sms_text) return;
+
+    // Create a title from the first 5 words (adjust as needed)
+    $words = wp_trim_words($sms_text, 5, '...');
+    $title = $words ?: 'SMS #' . $post_id;
+
+    // Update the post title without triggering infinite loop
+    remove_action('acf/save_post', __FUNCTION__); 
+    wp_update_post([
+        'ID'         => $post_id,
+        'post_title' => $title,
+    ]);
+    add_action('acf/save_post', __FUNCTION__);
+}, 20);
+
+
+
+
