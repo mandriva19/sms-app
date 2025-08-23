@@ -1,9 +1,20 @@
 <?php
-// safe helper function for ACF "get_field" to protect theme dependency for ACF.
+// safe helper function for ACF "get_field" to protect theme dependency on ACF.
 function safe_get_field($field_name, $default = '') {
     return function_exists('get_field') ? get_field($field_name) : $default;
 }
 
+// ACF JSON save point for saving acf field-and-post groups
+add_filter('acf/settings/save_json', function() {
+    return get_stylesheet_directory() . '/acf-json';
+});
+
+// ACF JSON load point  
+add_filter('acf/settings/load_json', function($paths) {
+    $paths[] = get_stylesheet_directory() . '/acf-json';
+    return $paths;
+});
+// functions partials
 require_once get_stylesheet_directory() . '/lib/functions/_assets.php';
 require_once get_stylesheet_directory() . '/lib/functions/_authorData.php';
 require_once get_stylesheet_directory() . '/lib/functions/_users.php';
