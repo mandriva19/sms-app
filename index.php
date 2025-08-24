@@ -4,8 +4,8 @@
     <a href="#"><img class="logo-tmp mb-2" src="http://localhost/web/wp-content/uploads/2025/08/logo-1.png" alt=""></a>
 </div>
     <div class="d-flex justify-content-center align-items-center">
-        <div class="beating-circle animate__animated animate__heartBeat animate__infinite infinite"></div>
-            <h3 class="text-center text-dark bg-light px-3 py-2 mb-2 border border-dark">შეტყობინებების პანელი</h3>
+         <div class="beating-circle animate__animated animate__heartBeat animate__infinite infinite bg-white"></div>
+            <h4 class="text-center text-dark bg-light px-3 py-2 my-2 ">შეტყობინებების პანელი</h4>
         </div>
         
 <section class="sms_section my-3 px-4 g-2">

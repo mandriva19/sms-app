@@ -7,6 +7,7 @@ import browserSync from 'browser-sync';
 // import esbuild from 'gulp-esbuild';
 import concat from 'gulp-concat';
 import uglify from 'gulp-uglify';
+import zip from 'gulp-zip';
 
 const { src, dest, watch, series } = gulp;
 const sassCompiler = gulpSass(sass);
@@ -15,19 +16,23 @@ const bs = browserSync.create();
 // === Paths ===  
 const paths = {
   scss: {
-    src: 'lib/scss/**/*.scss',
+    src: 'src/scss/**/*.scss',
     dest: 'dist/css',
   },
   js: {
-    entry: 'lib/js/main.js',
-    watch: 'lib/js/**/*.js', 
+    entry: 'src/js/main.js',
+    watch: 'src/js/**/*.js', 
     dest: 'dist/js',
   },
   php: '**/*.php',
+  package: {
+    src: ['**/*', '!src{,/**}', '!node_modules{,/**}', '!.gitattributes', '!.gitignore', '!.prettierrc', '!.babelrc', '!gulpfile.babel.js', '!package.json', '!package-lock.json'],
+    dest: 'zip'
+  }
 };
 
 // === SCSS Task ===
-function compileSCSS() {
+export const compileSCSS = () => {
   return src(paths.scss.src)
     .pipe(sassCompiler({ outputStyle: 'expanded' }).on('error', sassCompiler.logError))
     .pipe(postcss([autoprefixer()]))
@@ -35,7 +40,7 @@ function compileSCSS() {
     .pipe(bs.stream());
 }
 
-// === JS Task ===
+// === JS Task ESMODULE WAS FAILING ===
 // function bundleJS(cb) {
 //   src(paths.js.entry)
 //     .pipe(esbuild({
@@ -50,8 +55,9 @@ function compileSCSS() {
 //     .on('end', cb)
 //     .on('error', cb);
 // }
-function bundleJS() {
-  return src('lib/js/**/*.js')
+
+export const bundleJS = () => {
+  return src('src/js/**/*.js')
     .pipe(concat('bundle.js'))
     .pipe(uglify())
     .pipe(dest(paths.js.dest));
@@ -59,13 +65,13 @@ function bundleJS() {
 
 
 // === Browser Reload Helper ===
-function reload(done) {
+export const reload = (done) => {
   bs.reload();
   done();
 }
 
 // === BrowserSync + Watch ===
-function serve(done) {
+export const serve = (done) => {
   bs.init({
     proxy: 'http://localhost/web',
     open: true,
@@ -78,7 +84,12 @@ function serve(done) {
   done();
 }
 
-// === Public Tasks ===
-export { compileSCSS as scss };
-export { bundleJS as js };
+// === bundle/compress file for production
+export const compress = () => {
+   return gulp.src(paths.package.src)
+  .pipe(zip('sms-app.zip'))
+  .pipe(gulp.dest(paths.package.dest));
+}
+
 export default series(compileSCSS, bundleJS, serve);
+export const bundle = gulp.series(compileSCSS, bundleJS, compress);

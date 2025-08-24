@@ -1,4 +1,4 @@
-@use 'components/customBox' as *;
+@use 'customBox' as *;
 
 h1, h2, h3, h4, h5, p, small, span {
   font-family: "ArchyEDT-Bold", sans-serif;   
@@ -17,7 +17,7 @@ h1, h2, h3, h4, h5, p, small, span {
 
   // sms borders
   --border-box: solid 3px;
-  --border-warning: #b1cdd0;
+  --border-warning: #b1cdd061;
   --border-primary: #cba0e2;
   --border-success: #8788c4;
   --border-danger: #ca4552;
@@ -120,7 +120,7 @@ footer {
     border-radius: 50%;
     box-shadow: 0 0 0 rgba(255, 0, 0, 0.4);
     animation: pulse 1s infinite;
-    margin-top: -7px;
+    // margin-top: -7px;
     margin-right: 8px;
   }
 

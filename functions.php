@@ -15,10 +15,10 @@ add_filter('acf/settings/load_json', function($paths) {
     return $paths;
 });
 // functions partials
-require_once get_stylesheet_directory() . '/lib/functions/_assets.php';
-require_once get_stylesheet_directory() . '/lib/functions/_authorData.php';
-require_once get_stylesheet_directory() . '/lib/functions/_users.php';
-require_once get_stylesheet_directory() . '/lib/functions/_ajaxHandler.php';
+require_once get_stylesheet_directory() . '/lib/_assets.php';
+require_once get_stylesheet_directory() . '/lib/_authorData.php';
+require_once get_stylesheet_directory() . '/lib/_users.php';
+require_once get_stylesheet_directory() . '/lib/_ajaxHandler.php';
 
 // fixes for admin sms listings labeled as Auto Draft
 add_action('acf/save_post', function($post_id) {
