@@ -1,7 +1,5 @@
 <?php
-get_header(); 
-
-?>
+get_header(); ?>
 
 <section class="sms_section my-3 px-4">
     <?php
@@ -11,9 +9,12 @@ get_header();
         'posts_per_page' => -1,
         'post_status'    => 'publish',
     ]);
+    $counter = 0; //counts the loop itteration
+
     // Create sms posts-loop 
     if ( $sms_query->have_posts() ) :
         while ( $sms_query->have_posts() ) : $sms_query->the_post();
+            $counter++;
             $color_key   = safe_get_field('sms_color', 'sms_dark');
             // $author_name = safe_get_field('sms_author_name', get_the_author_meta('display_name'));
             $sms_text    = safe_get_field('sms_text', 'Something is wrong with ACF Plugin');
@@ -37,7 +38,17 @@ get_header();
                 </small>
             </footer>
         </article>
-
+        <!-- custom html box appears after 5th itteration of sms lopp -->
+          </article>
+        <?php 
+        // Sponsors area -> appears after X sms 
+            $custom_box_positions = [2, 4];
+            if (in_array($counter, $custom_box_positions)) {
+                echo '<div class="custom_content_box mb-4">
+                    <h1 class="custom_content_box__title">მხარდამჭერის სივრცე</h1>
+                </div>';
+            }
+            ?>    
             <?php
         endwhile;
         wp_reset_postdata();

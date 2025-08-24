@@ -1,0 +1,11 @@
+.custom_content_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 4px red;
+}
+
+.custom_content_box__text {
+    font-size: 20px;
+    color: red;
+}
