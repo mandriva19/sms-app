@@ -1,7 +1,14 @@
-<?php
-get_header(); ?>
+<?php get_header(); ?>
 
-<section class="sms_section my-3 px-4">
+<div class="logo-flex mt-3">
+    <a href="#"><img class="logo-tmp mb-2" src="http://localhost/web/wp-content/uploads/2025/08/logo-1.png" alt=""></a>
+</div>
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="beating-circle animate__animated animate__heartBeat animate__infinite infinite"></div>
+            <h3 class="text-center text-dark bg-light px-3 py-2 mb-2 border border-dark">შეტყობინებების პანელი</h3>
+        </div>
+        
+<section class="sms_section my-3 px-4 g-2">
     <?php
     // Query custom post type "sms"
     $sms_query = new WP_Query([
@@ -27,7 +34,7 @@ get_header(); ?>
                 </span>
             </header>
         
-            <p class="sms_text mb-2"><?php echo esc_html($sms_text); ?></p>
+            <p class="sms_text mb-1"><?php echo esc_html($sms_text); ?></p>
 
             <footer class="sms_meta">
                 <small class="sms_author">
@@ -38,14 +45,23 @@ get_header(); ?>
                 </small>
             </footer>
         </article>
-        <!-- custom html box appears after 5th itteration of sms lopp -->
-          </article>
+        </article>
         <?php 
-        // Sponsors area -> appears after X sms 
-            $custom_box_positions = [2, 4];
+        // Supporters area -> appears after X sms 
+            $custom_box_positions = [3, 10];
             if (in_array($counter, $custom_box_positions)) {
                 echo '<div class="custom_content_box mb-4">
-                    <h1 class="custom_content_box__title">მხარდამჭერის სივრცე</h1>
+                   <a href="#">
+                        <img class="supporters-area-img" src="http://localhost/web/wp-content/uploads/2025/08/mx-1.png">
+                   </a>
+                </div>';
+            }
+            $custom_box_positions_2 = [6, 13];
+            if (in_array($counter, $custom_box_positions_2)) {
+                echo '<div class="custom_content_box mb-4">
+                    <a href="#">
+                        <img class="supporters-area-img" src="http://localhost/web/wp-content/uploads/2025/08/mx-2-1.png ">
+                   </a>
                 </div>';
             }
             ?>    

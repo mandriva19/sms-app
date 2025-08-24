@@ -2,10 +2,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid 4px red;
+    border: solid 2px red;
 }
 
-.custom_content_box__text {
-    font-size: 20px;
-    color: red;
-}
+
+.supporters-area-img {
+    max-width: 100%;
+    display: block;
+  }
