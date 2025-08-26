@@ -1,16 +1,25 @@
 <?php get_header(); ?>
 
+<!-- temporary logo -->
 <div class="logo-flex mt-3">
-    <a href="#"><img class="logo-tmp mb-2" src="http://localhost/web/wp-content/uploads/2025/08/logo-1.png" alt=""></a>
+    <a href="#">
+        <img class="logo-tmp " 
+        src="http://localhost/web/wp-content/uploads/2025/08/logo-1.png" 
+        alt="">
+    </a>
 </div>
-    <div class="d-flex justify-content-center align-items-center">
-         <div class="beating-circle animate__animated animate__heartBeat animate__infinite infinite bg-white"></div>
-            <h4 class="text-center text-dark bg-light px-3 py-2 my-2 ">შეტყობინებების პანელი</h4>
-        </div>
-        
+<div class="sms_modal">
+    
+</div>
+<!-- Main sms section -->
 <section class="sms_section my-3 px-4 g-2">
+    <!-- Live circle animation -->
+    <div class="d-flex align-items-center">
+        <div class="beating-circle animate__animated animate__heartBeat animate__infinite infinite mb-4"></div>
+        <span class="text-danger py-2 px-2 mb-4">მიმდინარეობს შეტყობინებების განახლება</span>
+    </div>
     <?php
-    // Query custom post type "sms"
+    // filter custom post type "sms"
     $sms_query = new WP_Query([
         'post_type'      => 'sms_sms',
         'posts_per_page' => -1,
@@ -30,15 +39,24 @@
         <article class="sms_box animate__animated animate__fadeInDown <?php echo esc_attr($color_key); ?> p-3 text-white mb-4">
             <header class="sms_badges mb-2">
                 <span class="sms_badge__location py-1 px-2">
-                   <?php echo esc_html($author_data['location']); ?>
+                   <a class="a_sms_location" href="<?php echo esc_url( get_author_posts_url( $author_data['location'] ) ); ?>">
+                    <?php echo esc_html($author_data['location']); ?>
+                   </a>
+                </span>
+                <span class="sms_badge__subject py-1 px-2">
+                    ⚠️
                 </span>
             </header>
         
-            <p class="sms_text mb-1"><?php echo esc_html($sms_text); ?></p>
+            <p class="sms_text mb-1">
+                <?php echo esc_html($sms_text); ?>
+            </p>
 
             <footer class="sms_meta">
                 <small class="sms_author">
-                    — <?php echo esc_html($author_data['display_name']); ?>
+                    — <a href="<?php echo esc_url( get_author_posts_url( $author_data['author_id'] ) ); ?>">
+                        <?php echo esc_html($author_data['display_name']); ?>
+                      </a>
                     <time class="sms_date" datetime="<?php echo get_the_date('c'); ?>">
                         @<?php echo esc_html(get_the_date('H:i M j, Y')); ?>
                     </time>
@@ -51,17 +69,13 @@
             $custom_box_positions = [3, 10];
             if (in_array($counter, $custom_box_positions)) {
                 echo '<div class="custom_content_box mb-4">
-                   <a href="#">
-                        <img class="supporters-area-img" src="http://localhost/web/wp-content/uploads/2025/08/mx-1.png">
-                   </a>
+                       <h1>მხარდამჭერის სივრცე 1</h1>
                 </div>';
             }
             $custom_box_positions_2 = [6, 13];
             if (in_array($counter, $custom_box_positions_2)) {
                 echo '<div class="custom_content_box mb-4">
-                    <a href="#">
-                        <img class="supporters-area-img" src="http://localhost/web/wp-content/uploads/2025/08/mx-2-1.png ">
-                   </a>
+                    <h1>მხარდამჭერის სივრცე 2</h1>
                 </div>';
             }
             ?>    

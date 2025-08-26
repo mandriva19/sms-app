@@ -48,3 +48,42 @@ function save_user_location_field($user_id) {
 }
 add_action('personal_options_update', 'save_user_location_field');   // User updating their own profile
 add_action('edit_user_profile_update', 'save_user_location_field');  // Admin updating user profile
+
+// redirect authors to sms page
+function sms_login_redirect( $redirect_to, $request, $user ) {
+    if ( isset($user->roles) && in_array('author', $user->roles, true) ) {
+        return admin_url('edit.php?post_type=sms_sms');
+    }
+    return $redirect_to;
+}
+add_filter('login_redirect', 'sms_login_redirect', 10, 3);
+
+//hide sidebar 
+function hide_admin_menu_for_authors() {
+    if ( current_user_can('author') && !current_user_can('administrator') ) {
+        ?>
+        <style>
+            #adminmenuwrap, #adminmenuback {
+                display: none !important;
+            }
+            #wpcontent, #wpfooter {
+                margin-left: 0 !important;
+            }
+        </style>
+        <?php
+    }
+}
+add_action('admin_head', 'hide_admin_menu_for_authors');
+
+// hide admin bar top for authors
+
+// Inject CSS to hide admin bar for authors
+add_action('admin_head', function () {
+    if ( current_user_can('author') && !current_user_can('administrator') ) {
+        echo '<style>
+            #wpadminbar { display: none !important; }
+            html.wp-toolbar { padding-top: 0 !important; }
+        </style>';
+    }
+});
+

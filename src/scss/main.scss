@@ -1,7 +1,36 @@
 @use 'customBox' as *;
 
+
+@font-face {
+  font-family: 'ArchyEDT'; 
+  src: url('../../app/fonts/archyedt/archyedt-bold.ttf') format('opentype'),
+       url('../../app/fonts/archyedt/archyedt-bold.woff2') format('woff2'),
+       url('../../app/fonts/archyedt/archyedt-bold.woff') format('woff');
+    font-weight: lighter;
+} 
+
 h1, h2, h3, h4, h5, p, small, span {
-  font-family: "ArchyEDT-Bold", sans-serif;   
+  // font-family: "ArchyEDT-Bold", sans-serif;  
+  font-family: 'ArchyEDT', sans-serif; 
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  transition: all ease 200ms;
+}
+
+a:hover {
+  text-decoration: underline !important;
+  color: white !important;
+}
+
+.a_sms_location {
+  color: black;
+}
+.a_sms_location:hover {
+  color: black !important;
+  text-decoration: none !important;
 }
 
 :root {
@@ -25,11 +54,7 @@ h1, h2, h3, h4, h5, p, small, span {
   // varz
   --sms-text-size: 18px;
 }
-
-body {
-  background-color: var(--sms-body);
-}
-
+// body {background-color: var(--sms-body);}
 .sms_section {
   max-width: 55.625rem;
   margin: 0 auto;
@@ -47,8 +72,9 @@ body {
   left: -10px;
   font-size: 14px;
   color: black;
+  // border-radius: 15px;
   background-color: var(--sms-badge-location);
-  border: solid 1px var(--sms-danger);
+  border: solid 1px var(--sms-dark);
 }
 
 .sms_badge__subject {
@@ -56,10 +82,13 @@ body {
   top: -10px;
   left: 65px;
   font-size: 14px;
-  background-color: var(--sms-badge-subject);
+  border-radius: 15px;
+  background-color: var(--sms-badge-location);
+  color: black;
+  // border: solid 1px var(--border-primary)
 }
 
-.sms_sms_text {
+.sms_text {
   font-size: var(--sms-text-size);
   margin-top: 8px;
 }
@@ -114,9 +143,9 @@ footer {
 }
 
   .beating-circle {
-    width: 25px;
-    height: 25px;
-    background-color: red;
+    width: 15px;
+    height: 15px;
+    background-color: #fb686c;
     border-radius: 50%;
     box-shadow: 0 0 0 rgba(255, 0, 0, 0.4);
     animation: pulse 1s infinite;
