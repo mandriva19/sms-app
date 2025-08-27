@@ -1,21 +1,23 @@
 <?php
 
-function register_user_location_meta() {
+function register_user_custom_meta() {
     register_meta('user', 'user_location', array(
         'type'         => 'string',
         'description'  => 'User location field',
         'single'       => true,
         'show_in_rest' => true, // Makes it available in REST API
     ));
+
+    register_meta('user', 'author_bio', array(
+        'type' => 'string',
+        'description' => 'author bio',
+        'single' => true,
+        'show_in_rest' => true
+    ));
 }
-add_action('init', 'register_user_location_meta');
+add_action('init', 'register_user_custom_meta');
 
-// add_user_meta(1, 'user_location', 'თბილისი', true);
-// delete_user_meta(1, 'user_location', 'თბილისი', true);
-
-// add_user_meta(7, 'user_location', 'ქუთაისი', true);
-
-// Show field in user profile (both self-edit and admin-edit)
+// Show user location field in "profile" backend
 function show_user_location_field($user) {
     $location = get_user_meta($user->ID, 'user_location', true);
     ?>
@@ -49,7 +51,7 @@ function save_user_location_field($user_id) {
 add_action('personal_options_update', 'save_user_location_field');   // User updating their own profile
 add_action('edit_user_profile_update', 'save_user_location_field');  // Admin updating user profile
 
-// redirect authors to sms page
+// redirect authors to sms page upon logging-in
 function sms_login_redirect( $redirect_to, $request, $user ) {
     if ( isset($user->roles) && in_array('author', $user->roles, true) ) {
         return admin_url('edit.php?post_type=sms_sms');
@@ -86,4 +88,22 @@ add_action('admin_head', function () {
         </style>';
     }
 });
+
+add_user_meta(1, 'author_bio', 'this is coming from user bio backend', true);
+
+// display ID instead of name inside author url -> /site/author/..
+// add_filter('author_link', 'change_author_url', 10, 3);
+
+// function change_author_url($link, $author_id, $author_nicename) {
+//     return str_replace('/' . $author_nicename, '/id-' . $author_id, $link);
+// }
+
+// add_action('pre_get_posts', 'author_id_query');
+
+// function author_id_query($query) {
+//     if (!is_admin() && $query->is_author) {
+//         $author_id = get_query_var('author_name');
+//         $query->set('author', $author_id);
+//     }
+// }
 

@@ -14,5 +14,6 @@
    <!-- <link rel="stylesheet" href="//cdn.web-fonts.ge/fonts/archyedt-bold/css/archyedt-bold.min.css"> -->
     <?php wp_head(); ?>
   
+    <a class="bg-warning text-dark px-2 py-3" href="<?php echo bloginfo( 'url' );?>">home</a>
 </head>
 <body <?php body_class(); ?>>

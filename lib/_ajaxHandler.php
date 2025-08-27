@@ -32,3 +32,28 @@ function get_latest_sms() {
 
     wp_die();
 }
+
+
+/// 
+// Handle AJAX request to load author content
+function load_author_content() {
+    $user_id = intval($_POST['user_id']);
+    
+    // Set up query for author page
+    global $wp_query, $author;
+    
+    $author = get_user_by('ID', $user_id);
+    set_query_var('author', $user_id);
+    set_query_var('author_name', $author->user_nicename);
+    
+    // Load and render author template
+    ob_start();
+    include(get_template_directory() . '/author.php');
+    $content = ob_get_clean();
+    
+    echo $content;
+    wp_die();
+}
+
+add_action('wp_ajax_load_author_content', 'load_author_content');
+add_action('wp_ajax_nopriv_load_author_content', 'load_author_content');

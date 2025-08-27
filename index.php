@@ -1,4 +1,6 @@
 <?php get_header(); ?>
+<!-- unified-modal -->
+<?php get_template_part( './app/php/modal' ); ?>
 
 <!-- temporary logo -->
 <div class="logo-flex mt-3">
@@ -8,15 +10,12 @@
         alt="">
     </a>
 </div>
-<div class="sms_modal">
-    
-</div>
 <!-- Main sms section -->
 <section class="sms_section my-3 px-4 g-2">
     <!-- Live circle animation -->
     <div class="d-flex align-items-center">
         <div class="beating-circle animate__animated animate__heartBeat animate__infinite infinite mb-4"></div>
-        <span class="text-danger py-2 px-2 mb-4">მიმდინარეობს შეტყობინებების განახლება</span>
+        <span class="text-danger py-2 px-2 mb-4">Live განახლება</span>
     </div>
     <?php
     // filter custom post type "sms"
@@ -43,7 +42,7 @@
                     <?php echo esc_html($author_data['location']); ?>
                    </a>
                 </span>
-                <span class="sms_badge__subject py-1 px-2">
+                <span class="sms_badge__subject py-1 px-2 border border-dark">
                     ⚠️
                 </span>
             </header>
@@ -63,19 +62,18 @@
                 </small>
             </footer>
         </article>
-        </article>
         <?php 
         // Supporters area -> appears after X sms 
             $custom_box_positions = [3, 10];
             if (in_array($counter, $custom_box_positions)) {
                 echo '<div class="custom_content_box mb-4">
-                       <h1>მხარდამჭერის სივრცე 1</h1>
+                       <h1>1 მხარდამჭერის სივრცე</h1>
                 </div>';
             }
             $custom_box_positions_2 = [6, 13];
             if (in_array($counter, $custom_box_positions_2)) {
                 echo '<div class="custom_content_box mb-4">
-                    <h1>მხარდამჭერის სივრცე 2</h1>
+                    <h1>2 მხარდამჭერის სივრცე</h1>
                 </div>';
             }
             ?>    

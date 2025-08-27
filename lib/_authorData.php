@@ -7,6 +7,8 @@ function get_post_author_data() {
     // Get real name
     $first_name = get_user_meta($post_author_id, 'first_name', true);
     $last_name = get_user_meta($post_author_id, 'last_name', true);
+    $author_bio = get_user_meta($post_author_id, 'author_bio', true);
+    // $author_username = get_user_meta($post_author_id, 'author_username', true);
     // build real name to output as realname or fallback to display name or log-in name
         if (!empty($first_name) && !empty($last_name)) {
         $author_real_name = $first_name . ' ' . $last_name;
@@ -32,6 +34,8 @@ function get_post_author_data() {
     'real_name' => $author_real_name,
     'display_name' => $display_name,
     'first_name' => $first_name,
-    'last_name' => $last_name
+    'last_name' => $last_name,
+    'author_bio' => $author_bio
+    // 'author_username' => $author_username
     ];
 }
