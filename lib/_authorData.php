@@ -1,14 +1,18 @@
 <?php
 
-function get_post_author_data() {
-    $post_author_id = get_the_author_meta('ID');
+function get_post_author_data($user_id = null) {
+    $post_author_id = $user_id ? intval($user_id) : get_the_author_meta('ID');
+
+    if (!$post_author_id) {
+        return [];
+    }
     // Get author location
     $author_location = get_user_meta($post_author_id, 'user_location', true);
     // Get real name
     $first_name = get_user_meta($post_author_id, 'first_name', true);
     $last_name = get_user_meta($post_author_id, 'last_name', true);
     $author_bio = get_user_meta($post_author_id, 'author_bio', true);
-    // $author_username = get_user_meta($post_author_id, 'author_username', true);
+    $author_username = get_the_author_meta('user_nicename'); 
     // build real name to output as realname or fallback to display name or log-in name
         if (!empty($first_name) && !empty($last_name)) {
         $author_real_name = $first_name . ' ' . $last_name;
@@ -29,13 +33,13 @@ function get_post_author_data() {
     }
     // return user data
     return [
-    'author_id' => $post_author_id,
+    'id' => $post_author_id,
     'location' => $author_location ?: 'empty',
     'real_name' => $author_real_name,
     'display_name' => $display_name,
     'first_name' => $first_name,
     'last_name' => $last_name,
-    'author_bio' => $author_bio
-    // 'author_username' => $author_username
+    'bio' => $author_bio,
+    'username' => $author_username
     ];
 }

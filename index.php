@@ -15,7 +15,7 @@
     <!-- Live circle animation -->
     <div class="d-flex align-items-center">
         <div class="beating-circle animate__animated animate__heartBeat animate__infinite infinite mb-4"></div>
-        <span class="text-danger py-2 px-2 mb-4">Live განახლება</span>
+        <!-- <span class="text-danger py-2 px-2 mb-4">Live განახლება</span> -->
     </div>
     <?php
     // filter custom post type "sms"
@@ -39,11 +39,11 @@
             <header class="sms_badges mb-2">
                 <span class="sms_badge__location py-1 px-2">
                    <a class="a_sms_location" href="<?php echo esc_url( get_author_posts_url( $author_data['location'] ) ); ?>">
-                    <?php echo esc_html($author_data['location']); ?>
+                    <?php echo esc_html( $author_data['location'] ); ?>
                    </a>
                 </span>
                 <span class="sms_badge__subject py-1 px-2 border border-dark">
-                    ⚠️
+                    CRASH
                 </span>
             </header>
         
@@ -53,7 +53,11 @@
 
             <footer class="sms_meta">
                 <small class="sms_author">
-                    — <a href="<?php echo esc_url( get_author_posts_url( $author_data['author_id'] ) ); ?>">
+                    — <a 
+                    class="user-link" 
+                    data-user-id="<?= $author_data['id'] ?>" 
+                    data-username="<?= $author_data['username'] ?>" 
+                    href="<?php echo esc_url( get_author_posts_url( $author_data['id'] ) ); ?>">
                         <?php echo esc_html($author_data['display_name']); ?>
                       </a>
                     <time class="sms_date" datetime="<?php echo get_the_date('c'); ?>">

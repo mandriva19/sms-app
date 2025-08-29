@@ -89,7 +89,8 @@ add_action('admin_head', function () {
     }
 });
 
-add_user_meta(1, 'author_bio', 'this is coming from user bio backend', true);
+
+add_user_meta(7, 'author_bio', 'დავიბადე კირცხისში, მყავს შვილი და ასე', true);
 
 // display ID instead of name inside author url -> /site/author/..
 // add_filter('author_link', 'change_author_url', 10, 3);

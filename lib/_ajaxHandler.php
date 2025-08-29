@@ -33,27 +33,41 @@ function get_latest_sms() {
     wp_die();
 }
 
+// Register AJAX action for logged-in and guests
+add_action('wp_ajax_get_user_modal_data', 'get_user_modal_data');
+add_action('wp_ajax_nopriv_get_user_modal_data', 'get_user_modal_data');
 
-/// 
-// Handle AJAX request to load author content
-function load_author_content() {
+function get_user_modal_data() {
+    if ( ! isset($_POST['user_id']) ) {
+        wp_send_json_error(['message' => 'Missing user ID']);
+    }
+
     $user_id = intval($_POST['user_id']);
-    
-    // Set up query for author page
-    global $wp_query, $author;
-    
-    $author = get_user_by('ID', $user_id);
-    set_query_var('author', $user_id);
-    set_query_var('author_name', $author->user_nicename);
-    
-    // Load and render author template
-    ob_start();
-    include(get_template_directory() . '/author.php');
-    $content = ob_get_clean();
-    
-    echo $content;
-    wp_die();
-}
+    $user = get_userdata($user_id);
 
-add_action('wp_ajax_load_author_content', 'load_author_content');
-add_action('wp_ajax_nopriv_load_author_content', 'load_author_content');
+    if (!$user) {
+        wp_send_json_error(['message' => 'User not found']);
+    } 
+
+    $author_data = get_post_author_data($user_id);
+
+    $user_sms_query = new WP_Query([
+    'author'      => $author_data['author_id'],
+    'post_type'   => 'sms_sms', // 
+    'post_status' => 'publish',
+    'fields'      => 'ids',     // 
+]);
+
+$sms_count = $user_sms_query->found_posts;
+
+    wp_send_json_success([
+        'id'       => $author_data['id'],
+        'name'     => $author_data['real_name'], // 👈 first+last with your fallback logic
+        'display'  => $author_data['display_name'],
+        'location' => $author_data['location'],
+        'bio'      => $author_data['bio'],
+        'posts' => $sms_count,
+        'avatar'   => get_avatar_url($author_data['id'], ['size' => 200]),
+        'profile'  => get_author_posts_url($author_data['id']),
+    ]);
+}

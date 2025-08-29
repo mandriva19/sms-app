@@ -39,3 +39,20 @@ function sms_custom_js() {
 }
 add_action('wp_enqueue_scripts', 'sms_custom_js');
 
+/// user modal js
+
+function my_enqueue_modal_scripts() {
+    wp_enqueue_script(
+        'author-modal',
+        get_stylesheet_directory_uri() . '/app/js/userModal.js',
+        ['jquery'],
+        null,
+        true
+    );
+
+    wp_localize_script('author-modal', 'authorModal', [
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce'    => wp_create_nonce('author_modal_nonce')
+    ]);
+}
+add_action('wp_enqueue_scripts', 'my_enqueue_modal_scripts');

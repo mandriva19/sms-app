@@ -39,19 +39,26 @@ jQuery(function($) {
                                     ${sms.location || 'empty'}
                                 </span>
                             </header>
-                        
+
                             <p class="sms_text mb-2">${sms.text}</p>
-                        
+
                             <footer class="sms_meta">
                                 <small class="sms_author">
-                                    — ${sms.author}
+                                    — <a
+                                        class="user-link"
+                                        data-user-id="${sms.author_id}"
+                                        data-username="${sms.author_username}"
+                                        href="${sms.profile_url}"
+                                    >
+                                        ${sms.author}
+                                    </a>
                                     <time class="sms_date" datetime="${sms.datetime}">
                                         @${sms.date}
                                     </time>
                                 </small>
                             </footer>
                         </article>
-                    `;
+                        `;
 
                     if ($('.sms_box').length) {
                         $('.sms_box:first').before(newBoxHtml);
