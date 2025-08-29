@@ -1,12 +1,25 @@
-    #unifiedModalOverlay {
+  :root {
+    --modal-overlay-background-color: rgba(0, 0, 0, 0.4);
+    --modal-background-color: rgb(255, 255, 255);
+    --modal-overlay-z-index: 3000;
+    --modal-z-index: 4000;
+    --modal-width: 65%;
+    --modal-max-width: 620px;
+    --modal-padding: 20px;
+    --modal-border-color: red;
+    --modal-border-width: 2px;
+    --modal-border-style: solid;
+  }
+  
+  #unifiedModalOverlay {
         display: flex;
         justify-content: center;
         margin: 0 auto;
         position: fixed;
         top: 0;
         left: 0;
-        z-index: 3000;
-        background-color: rgba(0, 0, 0, 0.4);
+        z-index: var(--modal-overlay-z-index);
+        background-color: var(--modal-overlay-background-color);
         width: 100%;
         height: 100%;
     }
@@ -17,10 +30,11 @@
         // height: 100%;
         padding: 20px;
         width: 65%;
-        border-left: 2px red solid;
-        border-right: 2px red solid;
-        background-color: rgb(240, 196, 174);
-        z-index: 4000;
+        max-width: var(--modal-max-width);
+        border-left: var(--modal-border-width) var(--modal-border-style) var(--modal-border-color);
+        border-right: var(--modal-border-width) var(--modal-border-style) var(--modal-border-color);
+        background-color: var(--modal-background-color);
+        z-index: var(--modal-z-index);
     }
 
     .author_meta__img {
@@ -28,6 +42,7 @@
         height: 60px;
         max-width: 100%;
     }
+    
 
 #unifiedModalOverlay {
   opacity: 0;

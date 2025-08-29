@@ -52,7 +52,7 @@ function get_user_modal_data() {
     $author_data = get_post_author_data($user_id);
 
     $user_sms_query = new WP_Query([
-    'author'      => $author_data['author_id'],
+    'author'      => $author_data['id'],
     'post_type'   => 'sms_sms', // 
     'post_status' => 'publish',
     'fields'      => 'ids',     // 
