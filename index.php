@@ -3,13 +3,13 @@
 <?php get_template_part( './app/php/modal' ); ?>
 
 <!-- temporary logo -->
-<div class="logo-flex mt-3">
+<!-- <div class="logo-flex mt-3">
     <a href="#">
         <img class="logo-tmp " 
         src="http://localhost/web/wp-content/uploads/2025/08/logo-1.png" 
         alt="">
     </a>
-</div>
+</div> -->
 <!-- Main sms section -->
 <section class="sms_section my-3 px-4 g-2">
     <!-- Live circle animation -->
@@ -33,7 +33,7 @@
             $color_key   = safe_get_field('sms_color', 'sms_dark');
             // $author_name = safe_get_field('sms_author_name', get_the_author_meta('display_name'));
             $sms_text    = safe_get_field('sms_text', 'Something is wrong with ACF Plugin');
-            $author_data = get_post_author_data(); ?> 
+            $author_data = get_global_user_meta(); ?> 
 
         <article class="sms_box animate__animated animate__fadeInDown <?php echo esc_attr($color_key); ?> p-3 text-white mb-4">
             <header class="sms_badges mb-2">
@@ -42,9 +42,9 @@
                     <?php echo esc_html( $author_data['location'] ); ?>
                    </a>
                 </span>
-                <span class="sms_badge__subject py-1 px-2 border border-dark">
+                <!-- <span class="sms_badge__subject py-1 px-2 border border-dark">
                     CRASH
-                </span>
+                </span> -->
             </header>
         
             <p class="sms_text mb-1">

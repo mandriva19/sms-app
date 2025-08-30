@@ -1,14 +1,13 @@
 <?php
-
-function get_post_author_data($user_id = null) {
+// unified function to get author meta data
+function get_global_user_meta($user_id = null) {
     $post_author_id = $user_id ? intval($user_id) : get_the_author_meta('ID');
 
     if (!$post_author_id) {
         return [];
     }
-    // Get author location
+    // Get author meta data
     $author_location = get_user_meta($post_author_id, 'user_location', true);
-    // Get real name
     $first_name = get_user_meta($post_author_id, 'first_name', true);
     $last_name = get_user_meta($post_author_id, 'last_name', true);
     $author_bio = get_user_meta($post_author_id, 'author_bio', true);
@@ -25,12 +24,12 @@ function get_post_author_data($user_id = null) {
         }
     // User-option --> Determine to show sms author as(real name) or 'anonymous'
     $post_as  = safe_get_field('post_as', 'real_name');
-
-    if ($post_as === 'anonymous') {
-    $display_name = 'anonymous' . $post_author_id;
-    } else {
-    $display_name = $author_real_name;
-    }
+    // set display name based on user option (upon sms sub mission)
+        if ($post_as === 'anonymous') {
+        $display_name = 'anonymous' . $post_author_id;
+        } else {
+        $display_name = $author_real_name;
+        }
     // return user data
     return [
     'id' => $post_author_id,

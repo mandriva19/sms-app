@@ -17,6 +17,7 @@ add_filter('acf/settings/load_json', function($paths) {
 // functions partials
 require_once get_stylesheet_directory() . '/lib/_assets.php';
 require_once get_stylesheet_directory() . '/lib/_authorData.php';
+require_once get_stylesheet_directory() . '/lib/_smsUserGroup.php';
 require_once get_stylesheet_directory() . '/lib/_users.php';
 require_once get_stylesheet_directory() . '/lib/_ajaxHandler.php';
 

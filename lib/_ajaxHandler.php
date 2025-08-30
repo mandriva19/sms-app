@@ -15,7 +15,7 @@ function get_latest_sms() {
     if ( $sms_query->have_posts() ) {
         $sms_query->the_post();
         // get custom authordata function 
-        $author_data = get_post_author_data();
+        $author_data = get_global_user_meta();
         $response = [
             'id'         => get_the_ID(),
             'color'   => safe_get_field('sms_color', 'sms_danger'),
@@ -49,7 +49,7 @@ function get_user_modal_data() {
         wp_send_json_error(['message' => 'User not found']);
     } 
 
-    $author_data = get_post_author_data($user_id);
+    $author_data = get_global_user_meta($user_id);
 
     $user_sms_query = new WP_Query([
     'author'      => $author_data['id'],
@@ -58,7 +58,7 @@ function get_user_modal_data() {
     'fields'      => 'ids',     // 
 ]);
 
-$sms_count = $user_sms_query->found_posts;
+    $sms_count = $user_sms_query->found_posts;
 
     wp_send_json_success([
         'id'       => $author_data['id'],

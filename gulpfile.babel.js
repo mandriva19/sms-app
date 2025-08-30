@@ -27,7 +27,7 @@ const paths = {
   php: '**/*.php',
   package: {
     src: ['**/*', '!src{,/**}', '!node_modules{,/**}', '!.gitattributes', '!.gitignore', '!.prettierrc', '!.babelrc', '!gulpfile.babel.js', '!package.json', '!package-lock.json'],
-    dest: 'zip'
+    dest: 'production'
   }
 };
 

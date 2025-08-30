@@ -4,9 +4,9 @@
 
 @font-face {
   font-family: 'ArchyEDT'; 
-  src: url('../../app/fonts/archyedt/archyedt-bold.ttf') format('opentype'),
-       url('../../app/fonts/archyedt/archyedt-bold.woff2') format('woff2'),
-       url('../../app/fonts/archyedt/archyedt-bold.woff') format('woff');
+  src: url('../../app/fonts/archyedt/ArchyEDT-Bold.ttf') format('opentype'),
+       url('../../app/fonts/archyedt/ArchyEDT-Bold.woff2') format('woff2'),
+       url('../../app/fonts/archyedt/ArchyEDT-Bold.woff2') format('woff');
     font-weight: lighter;
 } 
 
@@ -38,7 +38,8 @@ a:hover {
   --sms-body: #efe5bf;
   // sms box colors
   --sms-dark: #555555;
-  --sms-primary: #b180cc;
+  // --sms-primary: #b180cc;
+  --sms-primary: #555555;
   --sms-warning: #123d4480;
   --sms-success: #67689d;
   --sms-danger: #b82e3b;

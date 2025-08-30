@@ -1,11 +1,10 @@
-<?php get_header(); ?>
 
 <?php get_header(); 
 
-$author_data = get_post_author_data(); ?>
+$author_data = get_global_user_meta(); ?>
 
 <p class="text-xl bg-warning text-dark">
-    <?php echo esc_html($author_data['author_bio']); ?> <br>
+    <?php echo esc_html($author_data['bio']); ?> <br>
     <?php echo esc_html($author_data['first_name']); ?> 
     <?php echo esc_html($author_data['last_name']); ?> <br>
     <?php echo esc_html($author_data['location']); ?> <br>
@@ -17,18 +16,19 @@ $author_data = get_post_author_data(); ?>
     $sms_query_authors = new WP_Query([
         'author' => get_queried_object_id(),
         'post_type'      => 'sms_sms',
-        'posts_per_page' => 1,
+        'posts_per_page' => 10,
         'post_status'    => 'publish',
         'paged'          => $paged,
     ]);
-
+  ?> 
+          <h3 class="text-center bg-warning text-dark">ავტორის ყველა პოსტი</h3>
+  <?php
      if ( $sms_query_authors->have_posts() ) :
         while ( $sms_query_authors->have_posts() ) : $sms_query_authors->the_post();
             $color_key   = safe_get_field('sms_color', 'sms_dark');
             // $author_name = safe_get_field('sms_author_name', get_the_author_meta('display_name'));
             $sms_text    = safe_get_field('sms_text', 'Something is wrong with ACF Plugin');
-            $author_data = get_post_author_data(); ?> 
-
+            $author_data = get_global_user_meta(); ?> 
         <article class="sms_box mx-5 <?php echo esc_attr($color_key); ?> p-3 text-white mb-4">
             <header class="sms_badges mb-2">
                 <span class="sms_badge__location py-1 px-2">
@@ -47,7 +47,7 @@ $author_data = get_post_author_data(); ?>
 
             <footer class="sms_meta">
                 <small class="sms_author">
-                    — <a href="<?php echo esc_url( get_author_posts_url( $author_data['author_id'] ) ); ?>">
+                    — <a href="<?php echo esc_url( get_author_posts_url( $author_data['id'] ) ); ?>">
                         <?php echo esc_html($author_data['display_name']); ?>
                       </a>
                     <time class="sms_date" datetime="<?php echo get_the_date('c'); ?>">

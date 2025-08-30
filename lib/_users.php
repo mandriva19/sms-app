@@ -51,14 +51,7 @@ function save_user_location_field($user_id) {
 add_action('personal_options_update', 'save_user_location_field');   // User updating their own profile
 add_action('edit_user_profile_update', 'save_user_location_field');  // Admin updating user profile
 
-// redirect authors to sms page upon logging-in
-function sms_login_redirect( $redirect_to, $request, $user ) {
-    if ( isset($user->roles) && in_array('author', $user->roles, true) ) {
-        return admin_url('edit.php?post_type=sms_sms');
-    }
-    return $redirect_to;
-}
-add_filter('login_redirect', 'sms_login_redirect', 10, 3);
+
 
 //hide sidebar 
 function hide_admin_menu_for_authors() {
@@ -92,19 +85,4 @@ add_action('admin_head', function () {
 
 add_user_meta(7, 'author_bio', 'დავიბადე კირცხისში, მყავს შვილი და ასე', true);
 
-// display ID instead of name inside author url -> /site/author/..
-// add_filter('author_link', 'change_author_url', 10, 3);
-
-// function change_author_url($link, $author_id, $author_nicename) {
-//     return str_replace('/' . $author_nicename, '/id-' . $author_id, $link);
-// }
-
-// add_action('pre_get_posts', 'author_id_query');
-
-// function author_id_query($query) {
-//     if (!is_admin() && $query->is_author) {
-//         $author_id = get_query_var('author_name');
-//         $query->set('author', $author_id);
-//     }
-// }
 
